@@ -132,7 +132,7 @@ fun QuestionScreenPreview() {
 @Destination(start = true)
 @Composable
 fun ReUBlind(navigator: DestinationsNavigator) {
-    val question = Question(datastoreTag = "Blind", description = "Ste nevidiaci ?", fuck = true)
+    val question = Question(datastoreTag = "Blind", description = "Ste zrakovo znevýhodnený ?", fuck = true)
     QuestionScreen(question = question, navigator = navigator)
 }
 
