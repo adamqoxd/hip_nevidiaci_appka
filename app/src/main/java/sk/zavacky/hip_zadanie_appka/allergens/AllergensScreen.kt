@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -26,9 +27,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import sk.zavacky.hip_zadanie_appka.R
+import sk.zavacky.hip_zadanie_appka.destinations.CameraPermissionPreviewDestination
 import kotlin.random.Random
-
 @Composable
 fun AllergenBox(allergen: Allergen, modifier: Modifier = Modifier) {
     var bcgcolor by remember {
@@ -72,7 +75,7 @@ fun AllergenBox(allergen: Allergen, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AllergensScreen(modifier: Modifier = Modifier, allergens: List<Allergen>) {
+fun AllergensScreen(navigator: DestinationsNavigator,modifier: Modifier = Modifier, allergens: List<Allergen>) {
     var bcgcolor by remember {
         mutableStateOf(Color.Transparent)
     }
@@ -99,12 +102,16 @@ fun AllergensScreen(modifier: Modifier = Modifier, allergens: List<Allergen>) {
                 AllergenBox(allergen = allergen)
             }
         }
+        Spacer(modifier = Modifier.height(30.dp))
+        Button(onClick = { navigator.navigate(CameraPermissionPreviewDestination)}) {
+            
+        }
     }
 }
 
-@Preview
+@Destination
 @Composable
-fun AllergensScreenPreview() {
+fun AllergensScreenPreview(navigator: DestinationsNavigator) {
     val allergensList = listOf<Allergen>(
         Allergen("Kešu oriešky", R.drawable.ic_icon_cashew),
         Allergen("Zeler", R.drawable.ic_icon_celery),
@@ -117,5 +124,5 @@ fun AllergensScreenPreview() {
         Allergen("Krevety", R.drawable.ic_icon_shrimp),
         Allergen("Sója", R.drawable.ic_icon_soya),
         Allergen("Orechy", R.drawable.ic_icon_walnut))
-    AllergensScreen(allergens = allergensList)
+    AllergensScreen(navigator,allergens = allergensList)
 }

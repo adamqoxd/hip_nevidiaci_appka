@@ -15,8 +15,10 @@ import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
+import com.ramcosta.composedestinations.DestinationsNavHost
 import sk.zavacky.hip_zadanie_appka.barcode.CameraPreview
 import sk.zavacky.hip_zadanie_appka.ui.theme.HIP_zadanie_appkaTheme
 
@@ -27,28 +29,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             HIP_zadanie_appkaTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        val cameraPermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
-
-                        Button(
-                            onClick = {
-                                cameraPermissionState.launchPermissionRequest()
-                            }
-                        ) {
-                            Text(text = "Camera Permission")
-                        }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        CameraPreview()
-                }
-            }
+                val navController = rememberNavController()
+                DestinationsNavHost(
+                    navController = navController,
+                    navGraph = NavGraphs.root
+                )
         }
     }
 }}

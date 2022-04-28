@@ -1,6 +1,7 @@
 package sk.zavacky.hip_zadanie_appka.permission
 
 import android.Manifest
+import android.content.pm.PackageManager
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,12 +24,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import sk.zavacky.hip_zadanie_appka.R
+import sk.zavacky.hip_zadanie_appka.destinations.CameraPreviewDestination
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun CameraPermission(modifier: Modifier = Modifier) {
+fun CameraPermission(navigator: DestinationsNavigator,modifier: Modifier = Modifier) {
     val cameraPermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
+
     Box(modifier = modifier
         .background(
             brush = Brush.verticalGradient(
@@ -52,6 +57,9 @@ fun CameraPermission(modifier: Modifier = Modifier) {
                 onClick = {
                     cameraPermissionState.launchPermissionRequest()
                     // Navigacie na Bar code scaner ... :D
+                    if(cameraPermissionState.hasPermission){
+                        navigator.navigate(CameraPreviewDestination)
+                    }
                 }) {
                 Text(text = stringResource(id = R.string.accept_camera_permission),
                     fontSize = 40.sp,
@@ -62,8 +70,8 @@ fun CameraPermission(modifier: Modifier = Modifier) {
 
 }
 
-@Preview
+@Destination()
 @Composable
-fun CameraPermissionPreview() {
-    CameraPermission()
+fun CameraPermissionPreview(navigator: DestinationsNavigator) {
+    CameraPermission(navigator = navigator)
 }
