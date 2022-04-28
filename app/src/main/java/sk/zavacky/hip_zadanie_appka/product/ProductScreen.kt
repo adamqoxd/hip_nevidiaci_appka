@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,24 +16,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import sk.zavacky.hip_zadanie_appka.R
+import sk.zavacky.hip_zadanie_appka.destinations.CameraPreviewDestination
 import kotlin.random.Random
 
 @Composable
-fun ProductScreen(product: Product, modifier: Modifier = Modifier) {
-    val rnd = Random
+fun ProductScreen(navigator: DestinationsNavigator,product: Product, modifier: Modifier = Modifier) {
     Column(modifier = modifier
         .fillMaxSize()
         .background(color = Color.White)
         .padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top) {
-        Text(modifier = modifier.padding(top = 30.dp),
+        Text(modifier = modifier.padding(top = 10.dp),
             text = product.name,
             textAlign = TextAlign.Center,
             fontSize = 60.sp)
@@ -50,12 +53,12 @@ fun ProductScreen(product: Product, modifier: Modifier = Modifier) {
                 Text(text = "- $product", textAlign = TextAlign.Left, fontSize = 30.sp)
             }
         }
-        Spacer(modifier = modifier.height(70.dp))
+        Spacer(modifier = modifier.height(40.dp))
         Text(text = stringResource(id = R.string.allergens),
             textAlign = TextAlign.Center,
             fontSize = 35.sp)
 
-        Spacer(modifier = modifier.height(40.dp))
+        Spacer(modifier = modifier.height(20.dp))
         LazyRow(verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(15.dp)) {
             items(product.allergensIcon) { icon ->
@@ -70,13 +73,20 @@ fun ProductScreen(product: Product, modifier: Modifier = Modifier) {
                     contentDescription = null)
             }
         }
+        Spacer(modifier = Modifier.height(10.dp))
+        Button(onClick = { navigator.navigate(CameraPreviewDestination)}) {
+            Text(text = stringResource(id = R.string.next_product),
+                fontSize = 30.sp,
+                color = Color.Black, fontWeight = FontWeight.Bold)
+
+        }
 
     }
 }
-
+/*
 @Preview
 @Composable
-fun ProductScreenPreview() {
+fun ProductScreenPreview(navigator: DestinationsNavigator) {
     val product: Product =
         Product(name = "Rozok",
             description = listOf("Muka", "Soda", "Skorica", "Drozdie"),
@@ -85,11 +95,11 @@ fun ProductScreenPreview() {
                 R.drawable.ic_icon_eggs,
                 R.drawable.ic_icon_fish,
                 R.drawable.ic_icon_milk))
-    ProductScreen(product = product)
-}
+    ProductScreen(navigator,product = product)
+}*/
 @Destination
 @Composable
-fun SojovySuk(){
+fun SojovySuk(navigator: DestinationsNavigator){
     val product: Product =
         Product(name = "Sójový rez",
             description = listOf("Sušený glukózový sirup",
@@ -105,12 +115,12 @@ fun SojovySuk(){
                 R.drawable.ic_icon_milk,
                 R.drawable.ic_icon_gluten))
 
-    ProductScreen(product = product)
+    ProductScreen(navigator,product = product)
 }
 
 @Destination
 @Composable
-fun Maslo(){
+fun Maslo(navigator: DestinationsNavigator){
     val product: Product =
         Product(name = "Maslo",
             description = listOf("Cukor",
@@ -119,12 +129,12 @@ fun Maslo(){
             allergensIcon = listOf(
                 R.drawable.ic_icon_milk,
                 R.drawable.ic_icon_gluten))
-    ProductScreen(product = product)
+    ProductScreen(navigator,product = product)
 }
 
 @Destination
 @Composable
-fun AlaskaCokoladova(){
+fun AlaskaCokoladova(navigator: DestinationsNavigator){
     val product: Product =
         Product(name = "Alaska Čokoládová",
             description = listOf("Cukor",
@@ -138,5 +148,5 @@ fun AlaskaCokoladova(){
                 R.drawable.ic_icon_eggs,
                 R.drawable.ic_icon_milk,
                 R.drawable.ic_icon_soya))
-    ProductScreen(product = product)
+    ProductScreen(navigator,product = product)
 }

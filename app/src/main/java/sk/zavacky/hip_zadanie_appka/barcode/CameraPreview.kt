@@ -17,12 +17,16 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import com.google.common.util.concurrent.ListenableFuture
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import sk.zavacky.hip_zadanie_appka.destinations.AlaskaCokoladovaDestination
+import sk.zavacky.hip_zadanie_appka.destinations.MasloDestination
+import sk.zavacky.hip_zadanie_appka.destinations.SojovySukDestination
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 @Destination
 @Composable
-fun CameraPreview() {
+fun CameraPreview(navigator: DestinationsNavigator) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     var preview by remember { mutableStateOf<Preview?>(null) }
@@ -58,7 +62,11 @@ fun CameraPreview() {
                     barcodes.forEach { barcode ->
                         barcode.rawValue?.let { barcodeValue ->
                             barCodeVal.value = barcodeValue
-                            Toast.makeText(context, barcodeValue, Toast.LENGTH_SHORT).show()
+                            when(barcodeValue){
+                                "20346218" -> navigator.navigate(SojovySukDestination)
+                                "8588005524018" -> navigator.navigate(AlaskaCokoladovaDestination)
+                                "4337185525520" -> navigator.navigate(MasloDestination)
+                            }
                         }
                     }
                 }
