@@ -63,7 +63,7 @@ fun ProductScreen(product: Product, modifier: Modifier = Modifier) {
                     .border(width = 2.dp,
                         shape = RoundedCornerShape(10.dp),
                         color = Color.Black)
-                    .background(Color(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)),
+                    .background(Color(0xFFFBD8B0),
                         shape = RoundedCornerShape(10.dp)),
                     painter = painterResource(id = icon),
                     contentDescription = null)
