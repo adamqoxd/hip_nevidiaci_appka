@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ramcosta.composedestinations.annotation.Destination
 import sk.zavacky.hip_zadanie_appka.R
 import kotlin.random.Random
 
@@ -84,5 +85,58 @@ fun ProductScreenPreview() {
                 R.drawable.ic_icon_eggs,
                 R.drawable.ic_icon_fish,
                 R.drawable.ic_icon_milk))
+    ProductScreen(product = product)
+}
+@Destination
+@Composable
+fun SojovySuk(){
+    val product: Product =
+        Product(name = "Sójový rez",
+            description = listOf("Sušený glukózový sirup",
+                "Sója",
+                "Múka",
+                "Cukor",
+                "Palmový tuk",
+                "Sušená syrovátka",
+                "Mlieko"),
+            allergensIcon = listOf(
+                R.drawable.ic_icon_soya,
+                R.drawable.ic_icon_eggs,
+                R.drawable.ic_icon_milk,
+                R.drawable.ic_icon_gluten))
+
+    ProductScreen(product = product)
+}
+
+@Destination
+@Composable
+fun Maslo(){
+    val product: Product =
+        Product(name = "Maslo",
+            description = listOf("Cukor",
+                "Soľ",
+                "Mlieko"),
+            allergensIcon = listOf(
+                R.drawable.ic_icon_milk,
+                R.drawable.ic_icon_gluten))
+    ProductScreen(product = product)
+}
+
+@Destination
+@Composable
+fun AlaskaCokoladova(){
+    val product: Product =
+        Product(name = "Alaska Čokoládová",
+            description = listOf("Cukor",
+                "Kukuričný škrob",
+                "Sušené mlieko",
+                "Srvátka",
+                "Palmový tuk",
+                "Soľ"),
+            allergensIcon = listOf(
+                R.drawable.ic_icon_gluten,
+                R.drawable.ic_icon_eggs,
+                R.drawable.ic_icon_milk,
+                R.drawable.ic_icon_soya))
     ProductScreen(product = product)
 }
